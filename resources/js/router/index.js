@@ -3,6 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/Home.vue'
 import BlogPage from '../pages/Blog.vue'
 import SingleBlogPage from '../pages/SingleBlog.vue'
+import LoginPage from '../pages/Login.vue'
+import RegisterPage from '../pages/Register.vue'
+import DashboardPage from '../pages/Dashboard.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -22,6 +25,24 @@ const router = createRouter({
             name: 'SingleBlog',
             component: SingleBlogPage,
             props: true,
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: LoginPage,
+            meta: { requiresGuest: true }
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: RegisterPage,
+            meta: { requiresGuest: true }
+        },
+        {
+            path: '/dashboard',
+            name: 'Dashboard',
+            component: DashboardPage,
+            meta: { requiresGuest: true }
         },
 
     ]
