@@ -42,10 +42,24 @@ const router = createRouter({
             path: '/dashboard',
             name: 'Dashboard',
             component: DashboardPage,
-            meta: { requiresGuest: true }
+            meta: { requiresAuth: true }
         },
 
     ]
+});
+
+router.beforeEach((to, from) => {
+    const authenticated = localStorage.getItem('authenticated')
+
+    if (to.meta.requiresGuest && authenticated) {
+        return {
+            name: "Dashboard"
+        }
+    } else if (to.meta.requiresAuth && !authenticated) {
+        return {
+            name: "Login"
+        }
+    }
 });
 
 export default router
