@@ -6,6 +6,7 @@ import SingleBlogPage from '../pages/SingleBlog.vue'
 import LoginPage from '../pages/Login.vue'
 import RegisterPage from '../pages/Register.vue'
 import DashboardPage from '../pages/Dashboard.vue'
+import CreatePost from '../pages/posts/CreatePost.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -42,6 +43,12 @@ const router = createRouter({
             path: '/dashboard',
             name: 'Dashboard',
             component: DashboardPage,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/create/post',
+            name: 'CreatePost',
+            component: CreatePost,
             meta: { requiresAuth: true }
         },
 

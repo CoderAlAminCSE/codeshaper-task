@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\RegisteredUserController;
@@ -25,3 +26,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [RegisteredUserController::class, 'store']);
 Route::middleware('auth:sanctum')->post('logout', [AuthenticatedSessionController::class, 'destroy']);
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+
+// post related routes
+Route::middleware('auth:sanctum')->post('post/store', [PostController::class, 'store']);
