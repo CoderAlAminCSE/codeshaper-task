@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,8 @@ Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
 // post related routes
 Route::middleware('auth:sanctum')->post('post/store', [PostController::class, 'store']);
+
+
+
+// frontend post related routes
+Route::get('frontend/post', [HomeController::class, 'posts']);
