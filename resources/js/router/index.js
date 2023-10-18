@@ -7,6 +7,8 @@ import LoginPage from '../pages/Login.vue'
 import RegisterPage from '../pages/Register.vue'
 import DashboardPage from '../pages/Dashboard.vue'
 import CreatePost from '../pages/posts/CreatePost.vue'
+import PostList from '../pages/posts/PostList.vue'
+import EditPost from '../pages/posts/EditPost.vue'
 
 const router = createRouter({
     history: createWebHistory(),
@@ -50,6 +52,19 @@ const router = createRouter({
             name: 'CreatePost',
             component: CreatePost,
             meta: { requiresAuth: true }
+        },
+        {
+            path: '/postList',
+            name: 'PostList',
+            component: PostList,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/post/:id/edit',
+            name: 'EditPost',
+            component: EditPost,
+            meta: { requiresAuth: true },
+            props: true
         },
 
     ]

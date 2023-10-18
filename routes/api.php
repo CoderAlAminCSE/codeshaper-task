@@ -31,6 +31,10 @@ Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
 // post related routes
 Route::middleware('auth:sanctum')->post('post/store', [PostController::class, 'store']);
+Route::middleware('auth:sanctum')->get('post/index', [PostController::class, 'index']);
+Route::middleware('auth:sanctum')->get('/post/edit/{id}', [PostController::class, 'edit']);
+Route::middleware('auth:sanctum')->post('/post/update/{id}', [PostController::class, 'update']);
+Route::middleware('auth:sanctum')->delete('/post/delete/{id}', [PostController::class, 'destroy']);
 
 
 

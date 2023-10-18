@@ -8,6 +8,9 @@
         <li>
           <router-link :to="{ name: 'CreatePost' }">Create Post</router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'PostList' }">Post List</router-link>
+        </li>
       </ul>
     </div>
   </div>
