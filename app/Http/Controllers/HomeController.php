@@ -13,4 +13,14 @@ class HomeController extends Controller
         $posts = PostResource::collection(Post::latest()->get());
         return response()->json($posts, 200);
     }
+
+    public function show($slug)
+    {
+        $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            return response()->json(['message' => 'Post not found'], 404);
+        }
+
+        return new PostResource($post);
+    }
 }

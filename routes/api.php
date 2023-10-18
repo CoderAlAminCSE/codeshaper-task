@@ -36,3 +36,4 @@ Route::middleware('auth:sanctum')->post('post/store', [PostController::class, 's
 
 // frontend post related routes
 Route::get('frontend/post', [HomeController::class, 'posts']);
+Route::get('post/{slug}', [HomeController::class, 'show']);
