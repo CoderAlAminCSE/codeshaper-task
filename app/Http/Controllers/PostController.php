@@ -6,6 +6,7 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
@@ -23,6 +24,10 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->save();
+
+        // Clear the cache when a new post is created
+        Cache::forget('all_posts');
+        return response()->json('Post created successfully', 200);
     }
 
     public function index()
@@ -51,6 +56,9 @@ class PostController extends Controller
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
         $post->save();
+
+        // Clear the cache when a post is updated
+        Cache::forget('all_posts');
         return response()->json($post, 200);
     }
 
@@ -58,6 +66,9 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $post->delete();
+
+        // Clear the cache when a post is deleted
+        Cache::forget('all_posts');
         return response()->json('Post deleted successfully', 200);
     }
 }
