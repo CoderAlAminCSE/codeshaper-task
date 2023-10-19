@@ -71,4 +71,16 @@ class PostController extends Controller
         Cache::forget('all_posts');
         return response()->json('Post deleted successfully', 200);
     }
+
+
+    public function publish($id)
+    {
+        $post = Post::find($id);
+        $post->published = true;
+        $post->save();
+
+        // Clear the cache when a post is deleted
+        Cache::forget('all_posts');
+        return response()->json(['message' => 'Post status updated successfully.']);
+    }
 }

@@ -8,7 +8,7 @@
       <div class="side-links">
         <ul>
           <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
-          <li><router-link :to="{ name: 'Blog' }">Blog</router-link></li>
+          <!-- <li><router-link :to="{ name: 'Blog' }">Blog</router-link></li> -->
           <li v-if="!loggedIn">
             <router-link :to="{ name: 'Login' }">Login</router-link>
           </li>

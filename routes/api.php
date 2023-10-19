@@ -35,6 +35,7 @@ Route::middleware('auth:sanctum')->get('post/index', [PostController::class, 'in
 Route::middleware('auth:sanctum')->get('/post/edit/{id}', [PostController::class, 'edit']);
 Route::middleware('auth:sanctum')->post('/post/update/{id}', [PostController::class, 'update']);
 Route::middleware('auth:sanctum')->delete('/post/delete/{id}', [PostController::class, 'destroy']);
+Route::middleware('auth:sanctum')->post('/post/publish/{id}', [PostController::class, 'publish']);
 
 
 

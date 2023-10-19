@@ -5,6 +5,7 @@
     <div class="item" v-for="(post, index) in posts" :key="post.id">
       {{ index + 1 }}.
       <p>{{ post.title }}</p>
+      <input type="submit" @click="publish(post.id)" value="Publish" />
       <div>
         <router-link :to="{ name: 'EditPost', params: { id: post.id } }"
           >Edit</router-link
@@ -41,6 +42,17 @@ export default {
             .catch((error) => {
               console.log(error);
             });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+    publish(id) {
+      axios
+        .post("/api/post/publish/" + id)
+        .then((response) => {
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);

@@ -24,7 +24,9 @@
       />
 
       <button type="submti">Sing Up</button>
-      <span>Have an account? <a href="">Log In</a> </span>
+      <span>Have an account?  <router-link :to="{ name: 'Login' }">
+         Login</router-link
+        > </span>
     </form>
   </div>
 </template>

@@ -13,7 +13,7 @@ class HomeController extends Controller
     public function posts()
     {
         $posts = Cache::remember('all_posts', 3600, function () {
-            return PostResource::collection(Post::latest()->get());
+            return PostResource::collection(Post::where('published', true)->latest()->get());
         });
 
         return response()->json($posts, 200);

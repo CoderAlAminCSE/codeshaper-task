@@ -13,7 +13,13 @@
       </span>
 
       <button type="submti">Log In</button>
-      <span>Don't have an account? <a href="">Sing Up</a> </span>
+      <span
+        >Don't have an account?
+
+        <router-link :to="{ name: 'Register' }">
+          Sign Up</router-link
+        >
+      </span>
     </form>
   </div>
 </template>
@@ -33,8 +39,8 @@ export default {
         .post("/api/login", this.fields)
         .then(() => {
           this.$router.push({ name: "Dashboard" });
-          localStorage.setItem('authenticated', true)
-          this.$emit('updateSidebar')
+          localStorage.setItem("authenticated", true);
+          this.$emit("updateSidebar");
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
