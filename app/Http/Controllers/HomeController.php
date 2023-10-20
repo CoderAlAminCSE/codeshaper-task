@@ -12,6 +12,7 @@ class HomeController extends Controller
 
     public function posts()
     {
+        // Retrieve a list of published posts, caching the result for 1 hour
         $posts = Cache::remember('all_posts', 3600, function () {
             return PostResource::collection(Post::where('published', true)->latest()->get());
         });
@@ -25,6 +26,7 @@ class HomeController extends Controller
 
     public function show($slug)
     {
+        // Find and return a post by its slug; return a 404 response if not found
         $post = Post::where('slug', $slug)->first();
         if (!$post) {
             return response()->json(['message' => 'Post not found'], 404);
