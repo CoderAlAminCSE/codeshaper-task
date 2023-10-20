@@ -21,6 +21,18 @@
           <span v-if="errors.title" class="error">
             {{ errors.description[0] }}
           </span>
+
+          <div v-if="role === 'premium'">
+            <label for="scheduledDateTime"
+              >Scheduled Publish Date and Time:</label
+            >
+            <input
+              type="datetime-local"
+              id="scheduledDateTime"
+              v-model="fields.scheduled_at"
+              name="scheduledDateTime"
+            />
+          </div>
           <input type="submit" value="Submit" />
         </form>
       </div>
@@ -33,7 +45,20 @@ export default {
     return {
       fields: {},
       errors: {},
+      role: "",
     };
+  },
+
+  mounted() {
+    axios
+      .get("/api/user")
+      .then((response) => {
+        this.role = response.data.role;
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   },
 
   methods: {
@@ -47,8 +72,8 @@ export default {
         .catch((error) => {
           const statusCode = error.response.status;
           if (statusCode == 403) {
-            alert('Daily limit exceed, please upgrade your membership')
-          this.$router.push({ name: "Dashboard" });
+            alert("Daily limit is exceeded, please upgrade your membership");
+            this.$router.push({ name: "Dashboard" });
           } else {
             this.errors = error.response.data.errors;
           }

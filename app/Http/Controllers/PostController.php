@@ -26,6 +26,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->slug = Str::slug($request->title);
         $post->description = $request->description;
+        $post->scheduled_at = $request->scheduled_at;
         $post->save();
 
         // Clear the cache when a new post is created and send success response
@@ -93,7 +94,7 @@ class PostController extends Controller
             'subject' => 'New post publish notify mail',
             'from' =>  env('MAIL_FROM_ADDRESS'),
         ];
-        $receiver = Auth::user()->email;
+        $receiver = admin()->email;
         PostPublishNotifyJOb::dispatch($receiver, $details); // Dispatch a job to send email notification
 
         // Clear the cache when a post is deleted
