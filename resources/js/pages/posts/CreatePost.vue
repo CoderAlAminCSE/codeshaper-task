@@ -45,7 +45,13 @@ export default {
           this.$router.push({ name: "PostList" });
         })
         .catch((error) => {
-          this.errors = error.response.data.errors;
+          const statusCode = error.response.status;
+          if (statusCode == 403) {
+            alert('Daily limit exceed, please upgrade your membership')
+          this.$router.push({ name: "Dashboard" });
+          } else {
+            this.errors = error.response.data.errors;
+          }
         });
     },
   },
