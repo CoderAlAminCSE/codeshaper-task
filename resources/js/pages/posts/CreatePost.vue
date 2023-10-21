@@ -33,7 +33,10 @@
               name="scheduledDateTime"
             />
           </div>
-          <input type="submit" value="Submit" />
+          <button class="button" type="submit" :disabled="loading">
+            <span v-if="loading">Loading...</span>
+            <span v-else>Submit</span>
+          </button>
         </form>
       </div>
     </div>
@@ -46,6 +49,7 @@ export default {
       fields: {},
       errors: {},
       role: "",
+      loading: false,
     };
   },
 
@@ -63,13 +67,16 @@ export default {
 
   methods: {
     submit() {
+      this.loading = true;
       axios
         .post("/api/post/store", this.fields)
         .then(() => {
           (this.fields = {}), (this.errors = {});
+          this.loading = false;
           this.$router.push({ name: "PostList" });
         })
         .catch((error) => {
+          this.loading = false;
           const statusCode = error.response.status;
           if (statusCode == 403) {
             alert("Daily limit is exceeded, please upgrade your membership");
@@ -87,5 +94,11 @@ export default {
   background-color: #f3f4f6;
   height: 150vh;
   padding: 50px;
+}
+
+.button{
+  color: white;
+  background-color: black;
+  padding: 10px;
 }
 </style>
