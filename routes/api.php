@@ -47,6 +47,7 @@ Route::middleware('auth:sanctum')->post('/post/publish/{id}', [PostController::c
 // frontend post related routes
 Route::get('frontend/post', [HomeController::class, 'posts']);
 Route::get('post/{slug}', [HomeController::class, 'show']);
+Route::post('post/comment/store/{id}', [HomeController::class, 'storeComment']);
 
 
 //delete it, it's for testing
