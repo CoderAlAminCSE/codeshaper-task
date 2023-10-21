@@ -24,12 +24,16 @@ class UserSeeder extends Seeder
         User::create([
             "name" => "user1",
             "email" => "user1@gmail.com",
+            "type" => "user",
+            "role" => "premium",
             "password" => '$2y$10$2dXuJopzVDaHsxTTVl.CZexCjLpOG.Im5ncG8XV53ZAQoKlif69iS',
         ]);
 
         User::create([
             "name" => "user2",
             "email" => "user2@gmail.com",
+            "type" => "user",
+            "role" => "free",
             "password" => '$2y$10$2dXuJopzVDaHsxTTVl.CZexCjLpOG.Im5ncG8XV53ZAQoKlif69iS',
         ]);
     }

@@ -3,12 +3,11 @@
     <!-- sidebar -->
     <div class="sidebar">
       <span class="closeButton">&times;</span>
-      <p class="brand-title"><a href="">Blog</a></p>
+      <p class="brand-title"><router-link :to="{ name: 'Home' }">Blog</router-link></p>
 
       <div class="side-links">
         <ul>
           <li><router-link :to="{ name: 'Home' }">Home</router-link></li>
-          <!-- <li><router-link :to="{ name: 'Blog' }">Blog</router-link></li> -->
           <li v-if="!loggedIn">
             <router-link :to="{ name: 'Login' }">Login</router-link>
           </li>
