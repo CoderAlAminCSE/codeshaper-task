@@ -2,19 +2,24 @@
 <template>
   <div class="categories-list">
     <h1>Posts List</h1>
-    <div class="item" v-for="(post, index) in posts" :key="post.id">
-      {{ index + 1 }}.
-      <p>{{ post.title }}</p>
-      <div>
-        <router-link :to="{ name: 'EditPost', params: { id: post.id } }"
-          >Edit</router-link
-        >
+    <div v-if="loading" class="post-list">Loading...</div>
+    <div v-else>
+      <div v-if="posts.length === 0" class="no-post-found">No Post Found</div>
+      <div v-else class="item" v-for="(post, index) in posts" :key="post.id">
+        {{ index + 1 }}.
+        <p>{{ post.title }}</p>
+        <div>
+          <router-link :to="{ name: 'EditPost', params: { id: post.id } }"
+            >Edit</router-link
+          >
+        </div>
+        <div v-if="post.published == false">
+          <input type="submit" @click="publish(post.id)" value="Publish" />
+        </div>
+        <input type="submit" @click="destroy(post.id)" value="Delete" />
       </div>
-      <div v-if="post.published == false">
-        <input type="submit" @click="publish(post.id)" value="Publish" />
-      </div>
-      <input type="submit" @click="destroy(post.id)" value="Delete" />
     </div>
+
     <div class="index-categories">
       <router-link :to="{ name: 'CreatePost' }">
         Create Posts<span>&#8594;</span></router-link
@@ -28,6 +33,7 @@ export default {
   data() {
     return {
       posts: [],
+      loading: true,
     };
   },
 
@@ -75,6 +81,7 @@ export default {
       .get("/api/post/index")
       .then((response) => {
         this.posts = response.data;
+        this.loading = false;
       })
       .catch((error) => {
         console.log(error);
@@ -161,5 +168,13 @@ export default {
 
 .index-categories {
   text-align: center;
+}
+
+.post-list {
+  margin-left: 480px;
+}
+
+.no-post-found {
+  margin-left: 480px;
 }
 </style>
