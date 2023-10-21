@@ -15,18 +15,20 @@
       </p>
     </div>
   </section>
-  <form @submit.prevent="commentStore(post)">
-    <div class="comment-container">
-      <div
-        class="comment"
-        v-for="(comment, index) in post.comments"
-        :key="comment.id"
-      >
-        {{ index + 1 }}. <strong>{{ comment.comment }}</strong> -by:
-        {{ comment.user.name }}
-      </div>
+  <div
+    v-if="post.comments && post.comments.length > 0"
+    class="comment-container"
+  >
+    <div
+      class="comment"
+      v-for="(comment, index) in post.comments"
+      :key="comment.id"
+    >
+      {{ index + 1 }}. <strong>{{ comment.comment }}</strong> -by:
+      {{ comment.user.name }}
     </div>
-
+  </div>
+  <form @submit.prevent="commentStore(post)">
     <div class="comment-container">
       <input
         type="text"
