@@ -14,9 +14,14 @@
           >
         </div>
         <div v-if="post.published == false">
-          <input type="submit" @click="publish(post.id)" value="Publish" />
+          <button class="publis-button" @click="publish(post)">
+            {{ post.publishing ? "Publishing..." : "Publish" }}
+          </button>
         </div>
-        <input type="submit" @click="destroy(post.id)" value="Delete" />
+        <!-- <input type="submit" @click="destroy(post.id)" value="Delete" /> -->
+        <button class="destroy-button" @click="destroy(post)">
+          {{ post.deleting ? "Deleting..." : "Delete" }}
+        </button>
       </div>
     </div>
 
@@ -38,9 +43,10 @@ export default {
   },
 
   methods: {
-    destroy(id) {
+    destroy(post) {
+      post.deleting = true;
       axios
-        .delete("/api/post/delete/" + id)
+        .delete("/api/post/delete/" + post.id)
         .then((response) => {
           axios
             .get("/api/post/index")
@@ -53,12 +59,16 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          post.deleting = false;
         });
     },
 
-    publish(id) {
+    publish(post) {
+      post.publishing = true;
       axios
-        .post("/api/post/publish/" + id)
+        .post("/api/post/publish/" + post.id)
         .then((response) => {
           console.log(response.data);
           axios
@@ -72,6 +82,9 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+        })
+        .finally(() => {
+          post.publishing = false;
         });
     },
   },
@@ -80,6 +93,10 @@ export default {
     axios
       .get("/api/post/index")
       .then((response) => {
+        this.posts = response.data.map((post) => ({
+          ...post,
+          publishing: false,
+        }));
         this.posts = response.data;
         this.loading = false;
       })
@@ -176,5 +193,26 @@ export default {
 
 .no-post-found {
   margin-left: 480px;
+}
+
+.publis-button {
+  background-color: #6d49d1;
+  color: white;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  cursor: pointer;
+}
+.destroy-button {
+  background-color: #df0f08;
+  color: white;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  cursor: pointer;
 }
 </style>

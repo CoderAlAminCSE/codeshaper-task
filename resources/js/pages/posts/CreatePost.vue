@@ -96,9 +96,14 @@ export default {
   padding: 50px;
 }
 
-.button{
+.button {
+  background-color: #6d49d1;
   color: white;
-  background-color: black;
-  padding: 10px;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  cursor: pointer;
 }
 </style>
