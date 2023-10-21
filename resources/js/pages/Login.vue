@@ -12,13 +12,13 @@
         {{ errors.password[0] }}
       </span>
 
-      <button type="submti">Log In</button>
+        <button type="submit" :disabled="loggingIn">
+          <p v-if="loggingIn">Logging...</p> <p v-else>Login</p>
+        </button>
       <span
         >Don't have an account?
 
-        <router-link :to="{ name: 'Register' }">
-          Sign Up</router-link
-        >
+        <router-link :to="{ name: 'Register' }"> Sign Up</router-link>
       </span>
     </form>
   </div>
@@ -30,11 +30,13 @@ export default {
     return {
       fields: {},
       errors: {},
+      loggingIn: false,
     };
   },
 
   methods: {
     login() {
+      this.loggingIn = true;
       axios
         .post("/api/login", this.fields)
         .then(() => {
@@ -44,6 +46,9 @@ export default {
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
+        })
+        .finally(() => {
+          this.loggingIn = false;
         });
     },
   },
@@ -94,11 +99,13 @@ button {
   width: 100%;
   background-color: blue;
   color: #ffffff;
-  padding: 15px 0;
   font-size: 18px;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  border: none;
 }
 
 form span {

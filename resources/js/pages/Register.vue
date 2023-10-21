@@ -23,10 +23,14 @@
         v-model="fields.password_confirmation"
       />
 
-      <button type="submti">Sing Up</button>
-      <span>Have an account?  <router-link :to="{ name: 'Login' }">
-         Login</router-link
-        > </span>
+      <button type="submit" :disabled="registering">
+        <p v-if="registering">Registering...</p>
+        <p v-else>Register</p>
+      </button>
+      <span
+        >Have an account?
+        <router-link :to="{ name: 'Login' }"> Login</router-link>
+      </span>
     </form>
   </div>
 </template>
@@ -37,10 +41,12 @@ export default {
     return {
       fields: {},
       errors: {},
+      registering: false,
     };
   },
   methods: {
     submit() {
+      this.registering = true;
       axios
         .post("/api/register", this.fields)
         .then(() => {
@@ -48,6 +54,9 @@ export default {
         })
         .catch((error) => {
           this.errors = error.response.data.errors;
+        })
+        .finally(() => {
+          this.registering = false;
         });
     },
   },
@@ -98,11 +107,13 @@ button {
   width: 100%;
   background-color: blue;
   color: #ffffff;
-  padding: 15px 0;
   font-size: 18px;
   font-weight: 600;
   border-radius: 5px;
   cursor: pointer;
+  text-align: center;
+  padding: 10px;
+  border: none;
 }
 
 form span {
