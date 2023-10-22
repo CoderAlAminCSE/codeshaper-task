@@ -1,18 +1,17 @@
 <template>
   <section class="single-blog-post" v-if="post">
-    <h1>{{ post.title }}</h1>
+    <div v-if="post.user ">
+      <h1>{{ post.title }}</h1>
 
-    <p class="time-and-author">
-      Writen by {{ post.user }}
-      <span>{{ post.created_at }}</span>
-    </p>
+      <p class="time-and-author">Writen by - {{ post.user.name }}</p>
 
-    <div class="single-blog-post-ContentImage" data-aos="fade-left"></div>
+      <div class="single-blog-post-ContentImage" data-aos="fade-left"></div>
 
-    <div class="about-text">
-      <p>
-        {{ post.description }}
-      </p>
+      <div class="about-text">
+        <p>
+          {{ post.description }}
+        </p>
+      </div>
     </div>
   </section>
   <div
@@ -28,6 +27,7 @@
       {{ comment.user.name }}
     </div>
   </div>
+  <div v-else>No comments found</div>
   <form @submit.prevent="commentStore(post)">
     <div class="comment-container">
       <input
@@ -91,6 +91,9 @@ export default {
         .catch((error) => {
           this.loading = false;
           this.errors = error.response.data.errors;
+          if (error.response.status == 401) {
+            this.$router.push({ name: "Login" });
+          }
         });
     },
   },

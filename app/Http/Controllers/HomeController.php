@@ -28,13 +28,8 @@ class HomeController extends Controller
 
     public function show($slug)
     {
-        // Find and return a post by its slug; return a 404 response if not found
-        return $post = Post::with('comments.user')->where('slug', $slug)->first();
-        if (!$post) {
-            return response()->json(['message' => 'Post not found'], 404);
-        }
-
-        return new PostResource($post);
+        $post = Post::with('user','comments.user')->where('slug', $slug)->first();
+        return response()->json($post, 200);
     }
 
 
