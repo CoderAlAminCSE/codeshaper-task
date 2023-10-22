@@ -18,7 +18,6 @@
             {{ post.publishing ? "Publishing..." : "Publish" }}
           </button>
         </div>
-        <!-- <input type="submit" @click="destroy(post.id)" value="Delete" /> -->
         <button class="destroy-button" @click="destroy(post)">
           {{ post.deleting ? "Deleting..." : "Delete" }}
         </button>

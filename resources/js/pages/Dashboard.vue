@@ -2,7 +2,12 @@
   <div id="backend-view">
     <div class="logout"><a href="#" @click="logout">Logout</a></div>
     <h1 class="heading">Dashboard</h1>
-    <span>Hi {{ name }}</span>
+    <span>Hi {{ name }}</span
+    ><br />
+    <div v-if="role === 'free'">
+      <button class="upgrade-button">Upgrade Account</button>
+    </div>
+
     <div class="links">
       <ul>
         <li>
@@ -21,6 +26,7 @@ export default {
   data() {
     return {
       name: " ",
+      role: " ",
     };
   },
   mounted() {
@@ -28,7 +34,7 @@ export default {
       .get("/api/user")
       .then((response) => {
         this.name = response.data.name;
-        console.log(response);
+        this.role = response.data.role;
       })
       .catch((error) => {
         console.log(error);
@@ -89,5 +95,16 @@ export default {
   font-size: 26px;
   display: inline-block;
   margin: 10px 0;
+}
+
+.upgrade-button {
+  background-color: #6d49d1;
+  color: white;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  cursor: pointer;
 }
 </style>
