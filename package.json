@@ -11,6 +11,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@stripe/stripe-js": "^2.1.10",
         "@vitejs/plugin-vue": "^4.4.0",
         "vue": "^3.2.36",
         "vue-router": "^4.2.5"
